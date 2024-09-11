@@ -6,9 +6,8 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Catalog App"),
-        backgroundColor: Colors.blue,
-      ),
+          title: const Text("Catalog App"),
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary),
       body: Center(
         // ignore: avoid_unnecessary_containers
         child: Container(
