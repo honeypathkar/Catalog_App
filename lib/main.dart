@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shopping_cart/pages/login_page.dart';
+import 'pages/login_page.dart';
 import 'pages/home_page.dart';
 
 void main() {
@@ -8,6 +8,7 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -17,13 +18,10 @@ class MyApp extends StatelessWidget {
       ),
       themeMode: ThemeMode.system,
       debugShowCheckedModeBanner: false,
-      initialRoute: "/home",
+      home: const LoginPage(), // Set HomePage as the starting page
       routes: {
-        // ignore: prefer_const_constructors
-        "/": (context) => LoginPage(),
+        "/login": (context) => const LoginPage(),
         "/home": (context) => HomePage(),
-        // ignore: prefer_const_constructors
-        "/login": (context) => LoginPage(),
       },
     );
   }
