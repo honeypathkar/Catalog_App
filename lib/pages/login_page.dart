@@ -5,26 +5,20 @@ class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  // ignore: library_private_types_in_public_api
+  _LoginPageState createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
   String name = "";
   bool changeButton = false;
-  final _formKey = GlobalKey<FormState>();
-  final TextEditingController _usernameController = TextEditingController();
 
-  @override
-  void dispose() {
-    _usernameController.dispose();
-    super.dispose();
-  }
+  final _formKey = GlobalKey<FormState>();
 
   moveToHome(BuildContext context) async {
     if (_formKey.currentState!.validate()) {
       setState(() {
         changeButton = true;
-        name = _usernameController.text; // Update the name variable
       });
       await Future.delayed(const Duration(seconds: 1));
       // ignore: use_build_context_synchronously
@@ -40,67 +34,71 @@ class _LoginPageState extends State<LoginPage> {
     return Material(
         color: Colors.white,
         child: SingleChildScrollView(
-            child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              Image.asset(
-                "assets/images/login.png",
-                fit: BoxFit.cover,
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Text(
-                "Welcome $name",
-                style:
-                    const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                child: Column(
-                  children: [
-                    TextFormField(
-                      controller: _usernameController,
-                      decoration: const InputDecoration(
-                        labelText: "Enter Username",
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                Image.asset(
+                  "assets/images/login.png",
+                  fit: BoxFit.cover,
+                ),
+                const SizedBox(
+                  height: 20.0,
+                ),
+                Text(
+                  "Welcome $name",
+                  style: const TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(
+                  height: 20.0,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 16.0, horizontal: 32.0),
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        decoration: const InputDecoration(
+                          labelText: "Username",
+                        ),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Username cannot be empty";
+                          }
+
+                          return null;
+                        },
+                        onChanged: (value) {
+                          name = value;
+                          setState(() {});
+                        },
                       ),
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return "Username cannot be empty";
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    TextFormField(
-                      obscureText: true,
-                      decoration: const InputDecoration(
-                        labelText: "Enter Password",
+                      TextFormField(
+                        obscureText: true,
+                        decoration: const InputDecoration(
+                          labelText: "Password",
+                        ),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Password cannot be empty";
+                          } else if (value.length < 6) {
+                            return "Password length should be atleast 6";
+                          }
+
+                          return null;
+                        },
                       ),
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return "Password cannot be empty";
-                        } else if (value.length < 6) {
-                          return "Password length should be at least 6";
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(
-                      height: 40,
-                    ),
-                    Material(
-                      color: Colors.deepPurple.shade700,
-                      borderRadius:
-                          BorderRadius.circular(changeButton ? 50 : 8),
-                      child: InkWell(
+                      const SizedBox(
+                        height: 40.0,
+                      ),
+                      Material(
+                        color: Colors.deepPurple,
+                        borderRadius:
+                            BorderRadius.circular(changeButton ? 50 : 8),
+                        child: InkWell(
                           onTap: () => moveToHome(context),
                           child: AnimatedContainer(
                             duration: const Duration(seconds: 1),
@@ -119,13 +117,15 @@ class _LoginPageState extends State<LoginPage> {
                                         fontWeight: FontWeight.bold,
                                         fontSize: 18),
                                   ),
-                          )),
-                    )
-                  ],
-                ),
-              ),
-            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
-        )));
+        ));
   }
 }

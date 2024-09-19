@@ -14,12 +14,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.deepPurple,
         useMaterial3: true,
       ),
       themeMode: ThemeMode.system,
       debugShowCheckedModeBanner: false,
-      home: const LoginPage(), // Set HomePage as the starting page
+      initialRoute: MyRoute.homeRoute, // Set homeRoute as the initial route
       routes: {
         MyRoute.loginRoute: (context) => const LoginPage(),
         MyRoute.homeRoute: (context) => HomePage(),
