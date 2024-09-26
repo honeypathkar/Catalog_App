@@ -9,9 +9,7 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text(
           "Catalog App",
-          style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: Colors.deepPurple,
       ),
       body: Center(
         // ignore: avoid_unnecessary_containers

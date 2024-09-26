@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shopping_cart/widgets/theme.dart';
 import 'pages/login_page.dart';
 import 'pages/home_page.dart';
 import 'utils/myroute.dart';
@@ -13,11 +14,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-        primarySwatch: Colors.deepPurple,
-        useMaterial3: true,
-      ),
+      theme: MyTheme.lightTheme(context),
       themeMode: ThemeMode.system,
+      darkTheme: MyTheme.darkTheme(context),
       debugShowCheckedModeBanner: false,
       initialRoute: MyRoute.homeRoute, // Set homeRoute as the initial route
       routes: {
