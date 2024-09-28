@@ -4,6 +4,8 @@ import 'dart:convert';
 import 'package:shopping_cart/models/catalog.dart';
 import 'package:shopping_cart/pages/home_widget/catalog_header.dart';
 import 'package:shopping_cart/pages/home_widget/catalog_list.dart';
+import 'package:shopping_cart/utils/myroute.dart';
+import 'package:shopping_cart/widgets/theme.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class HomePage extends StatefulWidget {
@@ -36,6 +38,16 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: MyTheme.creamColor,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => Navigator.pushNamed(context, MyRoute.cartRoute),
+        backgroundColor: MyTheme.darkBluishColor,
+        shape: const CircleBorder(),
+        child: const Icon(
+          Icons.shopping_cart_outlined,
+          color: Colors.white,
+        ),
+      ),
       body: SafeArea(
         child: Container(
           padding: Vx.m32,
