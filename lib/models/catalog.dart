@@ -2,6 +2,13 @@ import 'dart:convert';
 
 class CatalogModels {
   static List<Item>? items;
+
+  // ignore: null_closures
+  static Item? getById(int id) =>
+      // ignore: null_closures
+      items!.firstWhere((element) => element.id == id, orElse: null);
+
+  static Item getByPosition(int pos) => items![pos];
 }
 
 class Item {
@@ -20,6 +27,17 @@ class Item {
     required this.color,
     required this.image,
   });
+
+  static Item empty() {
+    return Item(
+      id: -1,
+      name: 'Unknown',
+      desc: 'No description available',
+      price: 0,
+      color: 'Unknown',
+      image: '',
+    );
+  }
 
   // Fixed copyWith method
   Item copyWith({
