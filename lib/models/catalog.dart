@@ -3,16 +3,15 @@ import 'dart:convert';
 class CatalogModels {
   static List<Item>? items;
 
-  // ignore: null_closures
-  static Item? getById(int id) =>
-      // ignore: null_closures
-      items!.firstWhere((element) => element.id == id, orElse: null);
+  // Corrected getById function
+  Item? getById(int id) => items!
+      .firstWhere((element) => element.id == id, orElse: () => Item.empty());
 
-  static Item getByPosition(int pos) => items![pos];
+  Item getByPosition(int pos) => items![pos];
 }
 
 class Item {
-  final num id;
+  final int id;
   final String name;
   final String desc;
   final num price;
@@ -28,6 +27,7 @@ class Item {
     required this.image,
   });
 
+  // Empty function added for default case
   static Item empty() {
     return Item(
       id: -1,
@@ -41,7 +41,7 @@ class Item {
 
   // Fixed copyWith method
   Item copyWith({
-    num? id,
+    int? id,
     String? name,
     String? desc,
     num? price,
@@ -71,7 +71,7 @@ class Item {
 
   factory Item.fromMap(Map<String, dynamic> map) {
     return Item(
-      id: map['id'] as num,
+      id: map['id'] as int,
       name: map['name'] as String,
       desc: map['desc'] as String,
       price: map['price'] as num,
