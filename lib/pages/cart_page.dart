@@ -37,7 +37,13 @@ class _CartTotal extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          "\$${_cart.totalPrice}".text.xl5.make(),
+          VxBuilder<MyStore>(
+            mutations: const {RemoveMutation}, // Listen to RemoveMutation
+            builder: (context, store, _) {
+              // Display the total price
+              return "\$${_cart.totalPrice}".text.xl5.make();
+            },
+          ),
           30.widthBox,
           ElevatedButton(
             onPressed: () {
@@ -58,23 +64,31 @@ class _CartTotal extends StatelessWidget {
 class _CartList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // Access the cart from the store
     // ignore: no_leading_underscores_for_local_identifiers
     final CartModel _cart = (VxState.store as MyStore).cart;
-    return _cart.items.isEmpty
-        ? "Nothing To Show".text.make()
-        : ListView.builder(
-            itemCount: _cart.items.length,
-            itemBuilder: (context, index) => ListTile(
-              leading: const Icon(Icons.done),
-              trailing: IconButton(
-                icon: const Icon(Icons.remove_circle_outline),
-                onPressed: () {
-                  _cart.remove(_cart.items[index]!);
-                  // setState(() {});
-                },
-              ),
-              title: _cart.items[index]!.name.text.make(),
-            ),
-          );
+
+    // Use VxBuilder to listen for RemoveMutation
+    return VxBuilder(
+      mutations: const {RemoveMutation},
+      builder: (context, _, __) {
+        return _cart.items.isEmpty
+            ? "Nothing To Show".text.center.make()
+            : ListView.builder(
+                itemCount: _cart.items.length,
+                itemBuilder: (context, index) => ListTile(
+                  leading: const Icon(Icons.done),
+                  trailing: IconButton(
+                    icon: const Icon(Icons.remove_circle_outline),
+                    onPressed: () {
+                      RemoveMutation(
+                          _cart.items[index]!); // Trigger RemoveMutation
+                    },
+                  ),
+                  title: _cart.items[index]!.name.text.make(),
+                ),
+              );
+      },
+    );
   }
 }

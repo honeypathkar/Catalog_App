@@ -19,7 +19,7 @@ class AddToCart extends StatelessWidget {
 
     // Using VxBuilder to listen for changes in the CartModel state
     return VxBuilder(
-      mutations: const {AddMutation}, // Define which mutations to listen to
+      mutations: const {AddMutation, RemoveMutation},
       builder: (context, _, __) {
         bool isInCart = _cart.items.contains(catalog);
         return ElevatedButton(
