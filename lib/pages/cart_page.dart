@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shopping_cart/core/store.dart';
 import 'package:shopping_cart/widgets/theme.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -29,8 +30,8 @@ class CartPage extends StatelessWidget {
 class _CartTotal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // ignore: unused_local_variable, no_leading_underscores_for_local_identifiers
-    final _cart = CartModel();
+    // ignore: no_leading_underscores_for_local_identifiers
+    final CartModel _cart = (VxState.store as MyStore).cart;
     return SizedBox(
       height: 200,
       child: Row(
@@ -54,16 +55,11 @@ class _CartTotal extends StatelessWidget {
   }
 }
 
-class _CartList extends StatefulWidget {
-  @override
-  __CartListState createState() => __CartListState();
-}
-
-class __CartListState extends State<_CartList> {
-  // ignore: unused_field
-  final _cart = CartModel();
+class _CartList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // ignore: no_leading_underscores_for_local_identifiers
+    final CartModel _cart = (VxState.store as MyStore).cart;
     return _cart.items.isEmpty
         ? "Nothing To Show".text.make()
         : ListView.builder(
@@ -74,7 +70,7 @@ class __CartListState extends State<_CartList> {
                 icon: const Icon(Icons.remove_circle_outline),
                 onPressed: () {
                   _cart.remove(_cart.items[index]!);
-                  setState(() {});
+                  // setState(() {});
                 },
               ),
               title: _cart.items[index]!.name.text.make(),
